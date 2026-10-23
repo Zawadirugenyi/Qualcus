@@ -7,6 +7,11 @@
 # ============================================================
 set -euo pipefail
 
+# Works with root@ (Hostinger VPS) and ubuntu@ (Oracle Cloud free VM).
+if [ "$(id -u)" -ne 0 ]; then
+  exec sudo -E bash "$0" "$@"
+fi
+
 APP_DIR="/home/qualcus/app"
 WEB_DIR="/var/www/qualcus"
 CMS_USER="qualcus"
@@ -98,12 +103,30 @@ fi
 
 # ------------------------------------------------------------
 log "Firewall"
-ufw allow 'Nginx Full' >/dev/null 2>&1 || true
-ufw status || true
+if command -v ufw >/dev/null 2>&1; then
+  ufw allow 'Nginx Full' >/dev/null 2>&1 || true
+  ufw status || true
+fi
 
+# Oracle Cloud images ship with an iptables REJECT rule that survives reboots.
+# Make 80/443 win over it (no-op on a plain Hostinger VPS).
+if command -v iptables >/dev/null 2>&1; then
+  DEBIAN_FRONTEND=noninteractive apt-get install -y -qq iptables-persistent >/dev/null 2>&1 || true
+  for port in 80 443; do
+    iptables -C INPUT -p tcp --dport "$port" -j ACCEPT 2>/dev/null \
+      || iptables -I INPUT 1 -p tcp --dport "$port" -j ACCEPT
+    if command -v ip6tables >/dev/null 2>&1; then
+      ip6tables -C INPUT -p tcp --dport "$port" -j ACCEPT 2>/dev/null \
+        || ip6tables -I INPUT 1 -p tcp --dport "$port" -j ACCEPT
+    fi
+  done
+  netfilter-persistent save >/dev/null 2>&1 || true
+fi
+
+PUBLIC_HOST="${PUBLIC_HOST:-$(hostname -I | awk '{print $1}')}"
 echo -e "\n\033[1;32m==> Server is ready.\033[0m"
-echo "    website : http://$(hostname -I | awk '{print $1}')"
-echo "    CMS     : http://$(hostname -I | awk '{print $1}'):$CMS_PORT/admin"
+echo "    website : http://$PUBLIC_HOST"
+echo "    CMS     : http://$PUBLIC_HOST:$CMS_PORT/admin"
 echo ""
 echo "    Last step — the SSL certificate:"
 echo "      certbot --nginx -d qualcus.com -d www.qualcus.com"

@@ -60,7 +60,8 @@ The admin shows `/QUALCUS.png`. `npm run sync:logo` copies `public/QUALCUS.png` 
 
 ```bash
 npm run deploy:prepare -- --sqlite                # writes the production env files
-npm run deploy -- root@YOUR_VPS_IP                   # build + copy + set up the server
+npm run deploy -- root@YOUR_VPS_IP                   # Hostinger VPS
+# npm run deploy -- ubuntu@YOUR_VPS_IP               # Oracle Cloud free VM (sudo)
 ```
 
 See **[DEPLOY.md](DEPLOY.md)** — VPS + DNS, SQLite, SSL, backups.

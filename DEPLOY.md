@@ -26,7 +26,8 @@ You need: `qualcus.com` at Hostinger (done) and a server with SSH.
 npm run deploy:prepare -- --sqlite
 
 # 2. build everything, copy it, set up nginx + systemd, start the CMS
-npm run deploy -- root@YOUR_SERVER_IP
+npm run deploy -- root@YOUR_SERVER_IP      # Hostinger VPS
+# npm run deploy -- ubuntu@YOUR_SERVER_IP  # Oracle Cloud free VM
 
 # 3. HTTPS (only after the A records point at that IP)
 ssh root@YOUR_SERVER_IP 'certbot --nginx -d qualcus.com -d www.qualcus.com'
@@ -40,12 +41,22 @@ Then open `https://qualcus.com/admin` and change the admin password (see *Passwo
 
 **Choose a server.**
 
-- **Oracle Cloud Always Free** — ARM VM, 4 cores / 24 GB, free forever. Ubuntu 24.04.
-  In the VCN **security list**, allow TCP 80 and 443 (the cloud firewall is separate from `ufw`).
+- **Oracle Cloud Always Free** — free forever. Create an **Ampere A1 (ARM)** instance with
+  **Ubuntu 24.04**, 4 OCPU / 24 GB. Open TCP **80** and **443** in the VCN **security list** (the
+  cloud firewall is separate from `ufw`). Oracle asks for a card to verify your identity; Always Free
+  resources are **not charged**. Avoid the 1 GB *micro* shape — it is too small to build the CMS.
+  If you get *"out of host capacity"*, retry or pick another availability domain.
 - **Hostinger VPS KVM 1** — ~$7/month, Ubuntu 24.04, simplest if you want one provider.
 
-You need the public IPv4 of the server and SSH access as `root` (add your SSH key to
-`~/.ssh/authorized_keys`).
+You need the public IPv4 of the server and SSH access. Both are supported:
+
+| Server | Login | Deploy command |
+| --- | --- | --- |
+| Hostinger VPS | `root` | `npm run deploy -- root@IP` |
+| Oracle Cloud | `ubuntu` (sudo) | `npm run deploy -- ubuntu@IP` |
+
+For Oracle, add your public key to the instance at creation; `ssh ubuntu@IP` must work without a
+password before deploying.
 
 **Point the domain at it.** Hostinger → **Domains** → `qualcus.com` → **DNS Zone**. Keep Hostinger's
 nameservers and add:
