@@ -1,0 +1,484 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap');
+
+/* ============================================================
+   Qualcus — admin theme
+   Same palette and type as the public site:
+   #0ea5e9 (blue) · #6366f1 (indigo) · #22d3ee (cyan)
+   Inter for text, Sora for headings.
+   Loaded by cms/src/app/(payload)/layout.tsx.
+   ============================================================ */
+
+:root {
+  --qualcus-brand: #0ea5e9;
+  --qualcus-brand-strong: #0369a1;
+  --qualcus-brand-light: #7dd3fc;
+  --qualcus-brand-soft: rgba(14, 165, 233, 0.12);
+  --qualcus-brand-line: rgba(14, 165, 233, 0.28);
+  --qualcus-ring: rgba(14, 165, 233, 0.3);
+  --qualcus-indigo: #6366f1;
+  --qualcus-cyan: #22d3ee;
+  --qualcus-shadow-sm: 0 1px 2px rgba(2, 10, 30, 0.05);
+  --qualcus-shadow-md: 0 12px 30px -18px rgba(2, 10, 30, 0.35);
+  --qualcus-shadow-lg: 0 24px 60px -24px rgba(2, 10, 30, 0.3);
+
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Sora', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --style-radius-s: 8px;
+  --style-radius-m: 12px;
+  --style-radius-l: 16px;
+
+  --accessibility-outline: 2px solid var(--qualcus-brand);
+}
+
+[data-theme='dark'] {
+  --qualcus-brand-strong: var(--qualcus-brand-light);
+  --qualcus-brand-soft: rgba(14, 165, 233, 0.16);
+  --qualcus-brand-line: rgba(125, 211, 252, 0.32);
+  --qualcus-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --qualcus-shadow-md: 0 14px 34px -18px rgba(0, 0, 0, 0.8);
+  --qualcus-shadow-lg: 0 26px 64px -24px rgba(0, 0, 0, 0.75);
+}
+
+html,
+body {
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+}
+
+/* ---------- scrollbars ---------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--theme-elevation-200) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--theme-elevation-200);
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-elevation-300);
+  background-clip: padding-box;
+}
+
+/* ---------- app shell ---------- */
+.template-default__wrap {
+  background:
+    radial-gradient(1000px 340px at 82% -140px, rgba(14, 165, 233, 0.1), transparent 68%),
+    var(--theme-bg);
+}
+
+[data-theme='dark'] .template-default__wrap {
+  background:
+    radial-gradient(1000px 340px at 82% -140px, rgba(34, 211, 238, 0.11), transparent 68%),
+    var(--theme-bg);
+}
+
+.app-header {
+  background: var(--theme-bg);
+  border-bottom: 1px solid var(--theme-elevation-100);
+}
+
+.doc-controls {
+  background: var(--theme-bg);
+  border-bottom: 1px solid var(--theme-elevation-100);
+}
+
+.doc-header {
+  border-bottom: 1px solid var(--theme-elevation-100);
+}
+
+.doc-header__title {
+  letter-spacing: -0.02em;
+}
+
+/* ---------- navigation ---------- */
+.nav {
+  background: var(--theme-elevation-50);
+  border-right: 1px solid var(--theme-elevation-100);
+}
+
+.qualcus-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 2px 2px 16px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--theme-elevation-100);
+}
+
+.qualcus-nav-brand__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 44px;
+  flex-shrink: 0;
+  background: var(--theme-elevation-0);
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: 10px;
+  box-shadow: var(--qualcus-shadow-sm);
+}
+
+[data-theme='dark'] .qualcus-nav-brand__mark {
+  background: var(--theme-elevation-100);
+}
+
+.qualcus-nav-brand__mark img {
+  display: block;
+  width: auto;
+  height: 30px;
+}
+
+.qualcus-nav-brand__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.qualcus-nav-brand__name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--theme-text);
+}
+
+.qualcus-nav-brand__tag {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--theme-elevation-400);
+}
+
+.qualcus-nav-brand__site {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-inline-start: auto;
+  flex-shrink: 0;
+  color: var(--theme-elevation-400);
+  border-radius: 8px;
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.qualcus-nav-brand__site:hover {
+  color: var(--qualcus-brand-strong);
+  background: var(--qualcus-brand-soft);
+}
+
+.qualcus-nav-brand__site svg {
+  width: 15px;
+  height: 15px;
+}
+
+.nav__link {
+  padding: 7px 12px;
+  margin: 1px 0;
+  border-radius: 9px;
+  color: var(--theme-elevation-700);
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+a.nav__link:hover,
+a.nav__link:focus-visible {
+  background: var(--theme-elevation-100);
+  color: var(--theme-text);
+  text-decoration: none;
+}
+
+.nav__link:has(.nav__link-indicator) {
+  background: var(--qualcus-brand-soft);
+  color: var(--qualcus-brand-strong);
+  box-shadow: inset 0 0 0 1px var(--qualcus-brand-line);
+}
+
+.nav__link-indicator {
+  width: 3px;
+  height: 18px;
+  border-radius: 0 3px 3px 0;
+  background: var(--qualcus-brand);
+}
+
+.nav-group__label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--theme-elevation-400);
+}
+
+.nav-group__toggle:hover .nav-group__label {
+  color: var(--theme-elevation-600);
+}
+
+/* ---------- dashboard ---------- */
+.collections__label {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--theme-elevation-600);
+}
+
+.collections__card-list {
+  gap: 14px;
+}
+
+.card {
+  background: var(--theme-bg);
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: var(--qualcus-shadow-sm);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.card--has-onclick {
+  cursor: pointer;
+}
+
+.card--has-onclick:hover {
+  transform: translateY(-2px);
+  border-color: var(--qualcus-brand);
+  box-shadow: var(--qualcus-shadow-md);
+}
+
+.card__title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.collection-type__count {
+  font-weight: 600;
+  color: var(--qualcus-brand-strong);
+  background: var(--qualcus-brand-soft);
+  padding: 0 6px;
+  border-radius: 999px;
+}
+
+/* ---------- tables ---------- */
+.table {
+  background: var(--theme-bg);
+  border: 1px solid var(--theme-elevation-100);
+  border-radius: 14px;
+  box-shadow: var(--qualcus-shadow-sm);
+}
+
+.table thead {
+  color: var(--theme-elevation-500);
+}
+
+.table thead th {
+  padding: 11px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: var(--theme-elevation-50);
+  border-bottom: 1px solid var(--theme-elevation-100);
+}
+
+.table tbody td {
+  padding: 11px 16px;
+  vertical-align: middle;
+}
+
+.table tbody tr:not(:last-child) td {
+  border-bottom: 1px solid var(--theme-elevation-100);
+}
+
+.table tbody tr:hover td {
+  background: var(--theme-elevation-50);
+}
+
+.table-cell-action-button {
+  border-radius: 8px;
+}
+
+/* ---------- forms ---------- */
+.field-type input:not([type='checkbox']):not([type='radio']),
+.field-type textarea,
+.field-type select {
+  border-radius: var(--style-radius-s);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.field-type input:not([type='checkbox']):not([type='radio']):focus,
+.field-type textarea:focus,
+.field-type select:focus {
+  border-color: var(--qualcus-brand);
+  box-shadow: 0 0 0 3px var(--qualcus-ring);
+  outline: none;
+}
+
+.field-label:not(.unstyled) {
+  font-weight: 500;
+  color: var(--theme-elevation-800);
+}
+
+.field-description {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ---------- buttons ---------- */
+.btn:not(.btn--icon-only) {
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.btn--style-primary {
+  --color: #ffffff;
+  --hover-color: #ffffff;
+  --bg-color: var(--qualcus-brand);
+  --hover-bg: #0284c7;
+  --btn-border: 0;
+  --hover-btn-border: 0;
+  box-shadow: 0 8px 18px -10px rgba(14, 165, 233, 0.8);
+}
+
+.btn--style-secondary {
+  border-radius: 10px;
+}
+
+/* ---------- pills, banners, toasts ---------- */
+.pill {
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.banner {
+  border-radius: 12px;
+}
+
+.payload-toast-item,
+.toast-content {
+  border-radius: 12px;
+  box-shadow: var(--qualcus-shadow-md);
+}
+
+/* ---------- logo ---------- */
+.qualcus-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qualcus-logo img {
+  display: block;
+  width: auto;
+  height: 76px;
+}
+
+.qualcus-icon img {
+  display: block;
+  width: auto;
+  height: 30px;
+}
+
+/* ---------- login screen ---------- */
+.template-minimal:has(.qualcus-logo) {
+  background:
+    radial-gradient(900px 480px at 50% -10%, rgba(34, 211, 238, 0.16), transparent 62%),
+    radial-gradient(700px 480px at 8% 108%, rgba(99, 102, 241, 0.2), transparent 62%),
+    radial-gradient(700px 480px at 92% 108%, rgba(14, 165, 233, 0.16), transparent 62%),
+    var(--theme-bg);
+}
+
+[data-theme='dark'] .template-minimal:has(.qualcus-logo) {
+  background:
+    radial-gradient(900px 480px at 50% -10%, rgba(34, 211, 238, 0.12), transparent 62%),
+    radial-gradient(700px 480px at 8% 108%, rgba(99, 102, 241, 0.16), transparent 62%),
+    radial-gradient(700px 480px at 92% 108%, rgba(14, 165, 233, 0.14), transparent 62%),
+    var(--theme-bg);
+}
+
+.template-minimal:has(.qualcus-logo) .template-minimal__wrap {
+  max-width: 440px;
+}
+
+.qualcus-logo {
+  margin-bottom: 4px;
+}
+
+.qualcus-login-intro {
+  margin: 0 0 calc(var(--base) * 1.5);
+  color: var(--theme-elevation-600);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.qualcus-login-intro p {
+  margin: 0;
+}
+
+.qualcus-login-intro a {
+  color: var(--qualcus-brand-strong);
+  font-weight: 500;
+}
+
+.qualcus-login-help {
+  margin-top: 8px !important;
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+.login-fields {
+  padding: calc(var(--base) * 1.5);
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: 18px;
+  background: var(--theme-elevation-50);
+  box-shadow: var(--qualcus-shadow-lg);
+}
+
+[data-theme='dark'] .login-fields {
+  border-color: rgba(148, 163, 184, 0.18);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.login-fields .btn--style-primary {
+  width: 100%;
+  margin-top: calc(var(--base) * 0.5);
+}

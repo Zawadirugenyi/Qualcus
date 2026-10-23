@@ -1,0 +1,51 @@
+{
+  "name": "qualcus-cms",
+  "version": "1.0.0",
+  "description": "Qualcus CMS — backend Payload CMS (admin + API) pour le site React.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev -p 3001",
+    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev -p 3001",
+    "build": "cross-env CMS_STANDALONE=1 NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build && node scripts/postbuild.mjs",
+    "build:next": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
+    "build:hostinger": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation payload migrate && cross-env CMS_STANDALONE=1 NODE_ENV=production NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build && node scripts/postbuild.mjs",
+    "db:migrate": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation payload migrate",
+    "db:migrate:create": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation payload migrate:create",
+    "db:migrate:status": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation payload migrate:status",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation PORT=3001 HOSTNAME=127.0.0.1 node .next/standalone/server.js",
+    "start:next": "cross-env NODE_OPTIONS=--no-deprecation next start -p 3001",
+    "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
+    "generate:types": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation payload generate:types",
+    "seed": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation payload run scripts/seed.ts",
+    "lint": "cross-env NODE_OPTIONS=--no-deprecation eslint .",
+    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload"
+  },
+  "dependencies": {
+    "@payloadcms/db-postgres": "^3.91.0",
+    "@payloadcms/db-sqlite": "3.91.0",
+    "@payloadcms/next": "3.91.0",
+    "@payloadcms/richtext-lexical": "3.91.0",
+    "@payloadcms/ui": "3.91.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "16.4.7",
+    "graphql": "^16.8.1",
+    "next": "16.3.3",
+    "payload": "3.91.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "sharp": "0.35.4"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.9",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "eslint": "^9.16.0",
+    "eslint-config-next": "16.3.3",
+    "prettier": "^3.4.2",
+    "typescript": "5.7.3"
+  },
+  "engines": {
+    "node": ">=20.18.1"
+  }
+}

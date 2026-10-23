@@ -1,0 +1,44 @@
+{
+  "name": "qualcus",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:all": "node scripts/dev.mjs",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "sitemap": "node --env-file-if-exists=.env scripts/gen-sitemap.mjs",
+    "sitemap:prod": "node --env-file-if-exists=.env.production scripts/gen-sitemap.mjs",
+    "build:prod": "npm run sync:logo && npm run sitemap:prod && tsc --noEmit && vite build",
+    "backup:cms": "node scripts/backup-cms.mjs",
+    "deploy:prepare": "node scripts/prepare-deploy.mjs",
+    "deploy": "bash scripts/deploy.sh",
+    "check:routing": "node scripts/check-routing.mjs",
+    "cms": "npm --prefix cms run dev",
+    "cms:build": "npm --prefix cms run build",
+    "sync:logo": "cp public/QUALCUS.png cms/public/QUALCUS.png"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "eslint": "^9.39.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.13.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.0",
+    "vite": "^8.3.4"
+  }
+}

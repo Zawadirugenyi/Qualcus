@@ -1,0 +1,29 @@
+# ============================================================
+#  Qualcus CMS (Payload + Next.js standalone) — systemd unit
+#  1. copy to /etc/systemd/system/qualcus-cms.service
+#  2. systemctl daemon-reload
+#  3. systemctl enable --now qualcus-cms
+# ============================================================
+
+[Unit]
+Description=Qualcus CMS (Payload + Next.js)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=qualcus
+Group=qualcus
+WorkingDirectory=/home/qualcus/app/cms
+Environment=NODE_ENV=production
+Environment=PORT=3001
+Environment=HOSTNAME=127.0.0.1
+EnvironmentFile=-/home/qualcus/app/cms/.env.production
+ExecStart=/usr/bin/node /home/qualcus/app/cms/.next/standalone/server.js
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
